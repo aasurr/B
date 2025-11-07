@@ -1,0 +1,26 @@
+Led and switch
+
+#define LED_PIN 6       // LED connected to pin 6
+#define SWITCH_PIN A1   // Push button connected to pin 0
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);       // Set LED pin as output
+  pinMode(SWITCH_PIN, INPUT_PULLUP); // Enable internal pull-up for the switch
+  Serial.begin(9600);
+  Serial.println("LED and Switch Test");
+}
+
+void loop() {
+  int switchState = digitalRead(SWITCH_PIN); // Read switch state
+
+  // The pin will read LOW when the button is pressed (due to INPUT_PULLUP)
+  if (switchState == LOW) {
+    digitalWrite(LED_PIN, HIGH); // Turn LED ON
+    Serial.println("Button Pressed - LED ON");
+  } else {
+    digitalWrite(LED_PIN, LOW);  // Turn LED OFF
+    Serial.println("Button Released - LED OFF");
+  }
+
+  delay(100); // Small delay to stabilize reading
+}
