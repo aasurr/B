@@ -1,0 +1,20 @@
+Led
+// Simple LED blink for pins 6 and 8
+
+int led1 = 6;   // LED connected to pin 6
+int led2 = 7;   // LED connected to pin 8
+
+void setup() {
+  pinMode(led1, OUTPUT);  // Set pin 6 as an output
+  pinMode(led2, OUTPUT);  // Set pin 8 as an output
+}
+
+void loop() {
+  digitalWrite(led1, HIGH);  // Turn on LED on pin 6
+  digitalWrite(led2, LOW);   // Turn off LED on pin 8
+  delay(500);                // Wait 0.5 seconds
+
+  digitalWrite(led1, LOW);   // Turn off LED on pin 6
+  digitalWrite(led2, HIGH);  // Turn on LED on pin 8
+  delay(500);                // Wait 0.5 seconds
+}
