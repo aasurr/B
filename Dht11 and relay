@@ -1,0 +1,43 @@
+Dht11 and relay
+#include "DHT.h"
+
+#define DHTPIN 7        // DHT11 data pin
+#define DHTTYPE DHT11   // Define sensor type
+#define RELAY_PIN 6     // Relay control pin
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("DHT11 with Relay Control");
+  dht.begin();
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, LOW);  // Make sure relay starts OFF
+}
+
+void loop() {
+  delay(2000); // Wait 2 seconds between readings
+
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature(); // Celsius
+
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  Serial.print("Temp: ");
+  Serial.print(temperature);
+  Serial.print(" °C  |  Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+  // --- Relay control logic ---
+  if (temperature > 30.0) {  // Threshold: 30°C
+    digitalWrite(RELAY_PIN, HIGH);  // Turn relay ON
+    Serial.println("Relay ON (Temperature High)");
+  } else {
+    digitalWrite(RELAY_PIN, LOW);   // Turn relay OFF
+    Serial.println("Relay OFF (Temperature Normal)");
+  }
+}
